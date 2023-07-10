@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs Posted</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <%-include("../partials/navbar.ejs")%>
+  <div class="container mx-auto mt-8 px-4 h-auto">
+    <h2 class="text-2xl font-semibold m-3 text-center text-black"> Jobs Posted </h2>
+    <hr class="bg-black">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 m-3">
+      <%if(org.jobs.length>0){%>
+            <%org.jobs.forEach((job)=>{%>
+              <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold"><%=job.position%></h3>
+                <hr>
+                <h5 class="mt-2 text-xl">No of Vacancy: &nbsp <span class="text-blue-500 text-xl font-semibold"> <%=job.no_of_vacancy%> </span> </h5>
+                <h5 class="mt-2 text-xl">Skills: &nbsp <span class="text-gray-600 text-lg font-semibold"> <%=job.skills%> </span> </h5>
+                <h5 class="mt-2 text-xl">Location: &nbsp <span class="text-green-500 text-xl font-semibold"> <%=job.location%> </span> </h5><br>
+                <a href="/api/v1/job/applicants/<%=job._id%>" class="bg-gray-800 p-2 rounded-md mt-2 border-2 text-lg font-semibold text-white"> View Applicants </a><br>
+                <button class="bg-green-600 p-2 rounded-md mt-4 border-2 text-lg font-semibold text-white">
+                      Delete
+                </button>
+              </div>
+            <%})%>
+      <%}%>
+    </div>
+  </div>
+  <%-include("../partials/footer.ejs")%>
+</body>
+
+</html>

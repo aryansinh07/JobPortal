@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <%-include("partials/navbar.ejs")%>
+  <div class="container mx-auto mt-8 px-4  h-auto lg:h-screen">
+    
+
+    <%if(userlogin){%>
+      <div class="bg-yellow-200 rounded-lg border-x-2">
+        <h2 class="text-3xl font-bold mb-4 px-4 m-0">Find Your Dream Job</h2>
+        <h5 class="text-lg font-thin mb-4 px-4">"Searching for the perfect match? Let our job portal be your wingman and help you find your dream career!"</h5>
+     </div>
+ 
+     <div class="mb-8">
+       <form action="/api/v1/job/searchjob"  method="post">
+         <input type="text" name="category" id="category" class="w-full px-4 py-2 rounded-lg bg-slate-100  focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Search jobs by category">
+         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mt-2"> Search </button>
+       </form>
+     </div>
+
+      <h2 class="text-2xl font-semibold m-3 text-center text-black"> Recent Jobs </h2>
+      <hr>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 m-3">
+        <%if(jobs.length>0){%>
+              <%jobs.forEach((job)=>{%>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                  <h3 class="text-xl font-bold"><%=job.position%></h3>
+                  <h5 class="mt-2 text-xl">Posted By: &nbsp;<span class="text-pink-500 text-xl font-semibold"> <%=job.Organization.name%> </span></h5>
+                  <h5 class="mt-2 text-xl">No of Vacancy: &nbsp <span class="text-blue-500 text-xl font-semibold"> <%=job.no_of_vacancy%> </span> </h5>
+                </div>
+              <%})%>
+        <%}%>
+      </div>
+    <%}else if (orgAuth){%>
+      <h2 class="text-2xl font-semibold m-3 text-center text-black"> Jobs Posted </h2>
+      <hr>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 m-3">
+        <%if(org.jobs.length>0){%>
+              <%org.jobs.forEach((job)=>{%>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                  <h3 class="text-xl font-bold"><%=job.position%></h3>
+                  <h5 class="mt-2 text-xl">Posted By: &nbsp;<span class="text-pink-500 text-xl font-semibold"> <%=job.Organization.name%> </span></h5>
+                  <h5 class="mt-2 text-xl">No of Vacancy: &nbsp <span class="text-blue-500 text-xl font-semibold"> <%=job.no_of_vacancy%> </span> </h5>
+               </div>
+              <%})%>
+        <%}%>
+      </div>
+        
+
+    <%}else{%>
+      <section class="bg-gray-100 py-8">
+        <div class="container mx-auto px-1">
+          <div class="flex flex-wrap -mx-4">
+            <div class="w-full md:w-1/2 px-4 mb-8">
+              <h2 class="text-4xl font-semibold mb-4">Discover Your Dream Job</h2>
+              <p class="text-gray-600 mb-6">Explore thousands of job opportunities tailored just for you. Whether you're an experienced professional or a fresh graduate, find the perfect fit in our vast selection of jobs.</p>
+            </div>
+            <div class="w-full md:w-1/2 px-4 mb-8 flex justify-center items-center">
+              <img src="https://img.freepik.com/free-vector/man-search-hiring-job-online-from-laptop_1150-52728.jpg?w=2000" alt="Job Search Image" class="max-h-96 rounded shadow-md">
+            </div>
+          </div>
+        </div>
+      </section>
+    <%}%>
+    
+  </div>
+  <%-include("partials/footer.ejs")%>
+</body>
+
+</html>

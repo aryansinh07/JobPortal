@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <%-include("../partials/navbar.ejs")%>
+    <div class="bg-yellow-200 rounded-lg border-x-2 mt-2">
+       <h2 class="text-3xl font-bold mb-4 px-4 m-0">Find Your Dream Job</h2>
+       <h5 class="text-lg font-thin mb-4 px-4">"Searching for the perfect match? Let our job portal be your wingman and help you find your dream career!"</h5>
+    </div>
+    <div class="container mx-auto mt-8">
+        <div class="flex flex-col items-center">
+          <div class="w-full mb-8">
+            <div class="relative">
+              <img src=<%=user.coverImage%> alt="User Background Image" class="w-full rounded-lg h-64">
+              <a href="/api/v1/user/upload-cover-photo-form" class="absolute inset-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 hover:w-12 hover:h-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                  </svg>  
+            </a>
+            </div>
+          </div>
+          <div class="flex items-center mb-4">
+            <div class="relative">
+              <img class="w-32 h-32 rounded-full object-cover mr-4" src="<%=user.profileImage%>" alt="">
+              <a href="/api/v1/user/upload-profile-photo-form" class="absolute inset-0 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 hover:w-12 hover:h-12">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                    </svg>  
+              </a>
+            </div>
+            <h2 class="text-2xl font-bold"><%=user.name%> </h2>
+          </div>
+          <div>
+            <%if(user.resume){%>
+              <br>
+              <button onclick="showPDF()" class="w-full py-2 px-4 text-white bg-indigo-500 rounded hover:bg-indigo-600"> Show Resume</button>
+              <br>
+            <%}else{%>
+              <br>
+              <a  href="/api/v1/user/upload-resume-form" class="py-2 px-4 mx-2 my-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Upload Resume</a>
+              <br>
+            <%}%>
+          </div>
+          <div class="mb-8 mx-7 mt-8">
+            <p class="text-cyan-500 text-left text-xl"><%=user.about%></p>
+          </div>
+          <h2 class="text-center text-xl font-bold"> Jobs Applied </h2>
+          <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 m-3">
+            <%if(user.Job.length>0){%>
+                  <%user.Job.forEach((job)=>{%>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                      <h3 class="text-xl font-bold"><%=job.position%></h3>
+                      <h5 class="mt-2 text-xl">Posted By: &nbsp;<span class="text-pink-500 text-xl font-semibold"> <%=job.Organization.name%> </span></h5>
+                      <h5 class="mt-2 text-xl mb-3">No of Vacancy: &nbsp <span class="text-blue-500 text-xl font-semibold"> <%=job.no_of_vacancy%> </span> </h5>
+                    </div>
+                  <%})%>
+            <%}%>
+          </div>
+      </div>
+  <%-include("../partials/footer.ejs")%>
+  <script>
+    function showPDF() {
+      var resumePath = "<%=user.resume%>"; // Replace with the actual path to your resume file
+      window.open(resumePath, '_blank');
+    }
+  </script>
+</body>
+
+</html>

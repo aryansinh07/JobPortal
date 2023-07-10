@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs Posted</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <%-include("../partials/navbar.ejs")%>
+  <div class="container mx-auto mt-8 px-4 h-auto md:h-screen lg:h-screen">
+    <h2 class="text-2xl font-semibold m-3 text-center text-black"> Applicants for Job : <%=job.position%> </h2>
+    <hr class="bg-black">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 ">
+        <%job.User.forEach((user)=>{%>
+            <div class="p-4 border border-gray-300 bg-white m-2 shadow-lg rounded-md">
+                <h2 class="text-lg font-semibold"><%=user.name %></h2>
+                <p class="text-gray-600"><%=user.email %></p>
+                <button class="bg-gray-800 p-2 rounded-md mt-2 border-2 text-lg font-semibold text-white" onclick="showPDF('<%=user.resume%>')"> Resume </button> <br>
+                <button class="bg-pink-500 p-2 rounded-md mt-2 border-2 text-lg font-semibold text-white hover:bg-pink-400"> Contact </button>
+                <!-- Add more applicant information as needed -->
+            </div>
+        <%})%>
+      </div>
+  </div>
+  <%-include("../partials/footer.ejs")%>
+</body>
+<script>
+    function showPDF(path) {
+      var resumePath = path ; // Replace with the actual path to your resume file
+      window.open(resumePath, '_blank');
+    }
+  </script>
+</html>

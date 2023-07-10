@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registeration</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Job Post</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
+</head>
+
+<body class="bg-gray-100">
+    <%-include("../partials/navbar.ejs")%>
+    <div class="flex items-center justify-center h-auto m-3 ">
+      <div class="bg-white shadow-lg rounded-lg p-8 lg:w-full ">
+        <h2 class="text-2xl font-bold mb-4 text-cyan-500">Post a Job</h2>
+        <form action="/api/v1/job/create/<%=orgAuth%>" method="post">
+          <div class="mb-4">
+              <label for="position" class="block text-gray-700 font-semibold mb-2">Position</label>
+              <input type="text" id="position" name="position" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500" placeholder="Position" required>
+          </div>
+          <div class="mb-4">
+            <label for="description" class="block text-gray-700 font-semibold mb-2">Description</label>
+            <textarea name="description" id="description" placeholder="Description of the Job" cols="30" rows="10" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="no_of_vacancy" class="block text-gray-700 font-semibold mb-2">No of Vacancy</label>
+            <input type="number" id="no_of_vacancy" name="no_of_vacancy" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500" placeholder="Enter no of Vacancy" required>
+          </div>
+          <div class="mb-4">
+              <label for="skills" class="block text-gray-700 font-semibold mb-2">Skills</label>
+              <input type="text" id="skills" name="skills" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500" placeholder="Skills Required" required>
+          </div>
+          <div class="mb-4">
+              <label for="location" class="block text-gray-700 font-semibold mb-2">Location</label>
+              <input type="text" id="location" name="location" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500" placeholder="Location of the Job" required>
+          </div>
+          <button type="submit" class="w-full py-2 px-4 text-white bg-indigo-500 rounded hover:bg-indigo-600">Post</button>
+        </form>
+      </div>
+    </div>
+    <%-include("../partials/footer.ejs")%>
+  </body>
+  

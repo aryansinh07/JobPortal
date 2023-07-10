@@ -1,0 +1,52 @@
+<header class="bg-gray-600 py-4">
+    <div class="container flex flex-col justify-between md:flex md:flex-row md:justify-between">
+      <h1 class="text-white text-2xl font-bold mx-2">Your Job Portal</h1>
+      <div class="flex flex-col md:flex md:flex-row lg:flex lg:flex-row">
+        <%if(userlogin){%>
+            <a  href="/" class="py-2 px-4 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Home</a>
+            <a  href="/api/v1/user/applyjob" class="py-2 px-4 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Jobs</a>
+            <a  href="/api/v1/user/profile" class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Profile</a>
+            <a  href="/api/v1/user/logout"  class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Logout</a>
+        <%}else if(orgAuth){%>
+          <a  href="/" class="py-2 px-4 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Home</a>
+          <a  href="/api/v1/organization/jobs" class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Jobs Posted</a>
+          <a  href="/api/v1/job/create" class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Post</a>
+          <a  href="" class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600">Profile</a>
+          <a  href="/api/v1/organization/logout"  class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg">Logout</a>
+        <%}else{%>
+            <button class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600"  id="signButton">Sign Up</button>
+            <div id="signOptions" class="mt-4 hidden">
+                <a href="/api/v1/user/register">  <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded">User</button>  </a>
+                <a href="/api/v1/organization/register"> <button class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded">Organization</button> </a>
+           </div>
+            <button class="px-4 py-2 mx-2 text-white bg-indigo-500 rounded-lg hover:bg-green-600" id="loginButton">Login</button>
+            <div id="loginOptions" class="mt-4 hidden">
+                <a href="/api/v1/user/login">  <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded">User</button>  </a>
+                <a href="/api/v1/organization/login"> <button class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded">Organization</button> </a>
+             </div>
+        <%}%>
+      </div>
+    </div>
+  </header>
+
+<script>
+    const loginButton = document.getElementById('loginButton');
+  const loginOptions = document.getElementById('loginOptions');
+
+  loginButton.addEventListener('click', () => {
+    loginOptions.classList.toggle('hidden');
+  });
+
+  const signButton = document.getElementById('signButton');
+  const signOptions = document.getElementById('signOptions');
+
+  signButton.addEventListener('click', () => {
+    signOptions.classList.toggle('hidden');
+  });
+
+
+</script>
+
+
+
+  
